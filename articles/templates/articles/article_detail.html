@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap');
+    
+    .article-title {
+        font-family: 'Playfair Display', serif;
+    }
+    
+    .article-content {
+        font-family: 'Inter', sans-serif;
+    }
+    
+    .gradient-mask {
+        -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    }
+    
+    .paragraph-hover {
+        transition: all 0.3s ease;
+    }
+    
+    .paragraph-hover:hover {
+        transform: translateX(10px);
+        border-color: #4F46E5;
+    }
+    
+    .debug-info {
+        background: #f0f9ff;
+        border: 1px solid #0ea5e9;
+        border-radius: 8px;
+        padding: 12px;
+        margin: 16px 0;
+        font-family: monospace;
+        font-size: 14px;
+    }
+</style>
+
+<article class="min-h-screen bg-white pt-0">
+    <!-- Hero Section -->
+    {% if article.featured_image %}
+    <div class="relative h-[70vh] w-full overflow-hidden">
+        <div class="absolute inset-0 gradient-mask">
+            <img src="{{ article.featured_image.url }}" 
+                 alt="{{ article.title }}" 
+                 class="w-full h-full object-cover">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 px-4 sm:px-6 lg:px-8 pb-20">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex items-center space-x-4 mb-6">
+                    <span class="px-3 py-1 bg-indigo-600 text-white text-sm font-medium rounded-full tracking-wide shadow-lg">Travel Insights</span>
+                    <time class="text-white text-sm backdrop-blur-sm bg-black/30 px-3 py-1 rounded-full">{{ article.date_published|date:"F j, Y" }}</time>
+                </div>
+                <h1 class="article-title text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-tight mb-6 shadow-text">
+                    {{ article.title }}
+                </h1>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="h-8"></div> <!-- Minimal spacer when no featured image -->
+    {% endif %}
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-12 gap-8">
+            <!-- Article Content -->
+            <div class="col-span-12 lg:col-span-8">
+                <!-- Author Info -->
+                <div class="bg-white rounded-xl shadow-xl p-4 mb-8 flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="h-12 w-12 rounded-full bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center">
+                            <span class="text-lg font-bold text-white">{{ article.author|slice:":1" }}</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">{{ article.author }}</h3>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <span>Senior Travel Writer</span>
+                                <span class="mx-2">•</span>
+                                <span>8 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="p-2 text-gray-500 hover:text-indigo-600 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </button>
+                        <button class="p-2 text-gray-500 hover:text-indigo-600 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </button>
+                        <button class="p-2 text-gray-500 hover:text-indigo-600 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Article Body -->
+                <div class="article-content bg-white rounded-xl shadow-xl p-8 lg:p-12">
+                    {% if article.structured_content %}
+                        <!-- AI-Generated Content -->
+                        {% if article.structured_content.summary %}
+                        <div class="mb-12">
+                            <div class="flex items-center space-x-2 text-indigo-600 mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z"/>
+                                </svg>
+                                <span class="font-semibold tracking-wide uppercase text-sm">Quick Summary</span>
+                            </div>
+                            <div class="prose prose-lg max-w-none">
+                                <p class="text-xl text-gray-600 leading-relaxed">{{ article.structured_content.summary }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if article.structured_content.key_points %}
+                        <div class="mb-12 bg-gray-50 rounded-xl p-8">
+                            <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                                <svg class="w-6 h-6 text-indigo-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Key Takeaways
+                            </h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {% for point in article.structured_content.key_points %}
+                                <div class="flex items-start space-x-4">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center">
+                                        <span class="text-indigo-600 font-semibold">{{ forloop.counter }}</span>
+                                    </div>
+                                    <p class="text-gray-700">{{ point }}</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if article.structured_content.sections %}
+                            {% for section in article.structured_content.sections %}
+                                {% if section.type == 'heading' %}
+                                    <div class="mt-16 mb-8">
+                                        <h2 class="article-title text-4xl font-bold text-gray-900">{{ section.content }}</h2>
+                                    </div>
+                                {% elif section.type == 'subheading' %}
+                                    <div class="mt-12 mb-6">
+                                        <h3 class="text-2xl font-semibold text-gray-800">{{ section.content }}</h3>
+                                    </div>
+                                {% elif section.type == 'paragraph' %}
+                                    <div class="mb-8 paragraph-hover border-l-4 border-transparent pl-6">
+                                        <p class="text-lg text-gray-700 leading-relaxed">{{ section.content }}</p>
+                                    </div>
+                                {% elif section.type == 'quote' %}
+                                    <figure class="my-12">
+                                        <blockquote class="relative">
+                                            <div class="relative z-10">
+                                                <svg class="absolute -top-8 -left-8 h-16 w-16 text-gray-100" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                                                    <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"/>
+                                                </svg>
+                                                <p class="relative z-10 text-2xl text-gray-600 italic leading-relaxed">{{ section.content }}</p>
+                                            </div>
+                                        </blockquote>
+                                    </figure>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <div class="text-center py-8">
+                                <p class="text-gray-500">AI content generated but no sections found.</p>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <!-- Fallback to Original Content -->
+                        <div class="space-y-8">
+                            {% if paragraphs %}
+                                {% for paragraph in paragraphs %}
+                                    <div class="paragraph-hover border-l-4 border-transparent pl-6">
+                                        <p class="text-lg text-gray-700 leading-relaxed">{{ paragraph|safe }}</p>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="text-center py-8">
+                                    <p class="text-gray-500">No content available for this article.</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Author Bio -->
+                <div class="mt-12 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl shadow-xl overflow-hidden">
+                    <div class="p-8 sm:p-10">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                            <div class="flex-shrink-0">
+                                <div class="h-24 w-24 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
+                                    <span class="text-3xl font-bold text-white">{{ article.author|slice:":1" }}</span>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ article.author }}</h3>
+                                <p class="text-gray-600 mb-4">Senior Travel Writer & Points Expert</p>
+                                <p class="text-gray-700">Passionate about uncovering hidden travel gems and helping readers maximize their travel experiences through strategic points and miles strategies.</p>
+                                <div class="mt-4 flex flex-wrap gap-4">
+                                    <a href="#" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+                                        Follow
+                                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                        </svg>
+                                    </a>
+                                    <a href="#" class="inline-flex items-center px-4 py-2 bg-white text-indigo-600 text-sm font-medium rounded-lg border border-indigo-600 hover:bg-indigo-50 transition-colors">
+                                        View Profile
+                                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-span-12 lg:col-span-4 space-y-8">
+                <!-- Newsletter -->
+                <div class="sticky top-8">
+                    <div class="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl shadow-xl p-8 text-white">
+                        <h3 class="text-2xl font-bold mb-4">Stay Updated</h3>
+                        <p class="mb-6 text-indigo-100">Get exclusive travel tips and points strategies delivered straight to your inbox.</p>
+                        <form class="space-y-4">
+                            <div>
+                                <label class="sr-only">Email address</label>
+                                <input type="email" placeholder="Enter your email" 
+                                       class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50">
+                            </div>
+                            <button type="submit" 
+                                    class="w-full px-4 py-3 bg-white text-indigo-600 rounded-lg font-medium hover:bg-indigo-50 transition-colors">
+                                Subscribe
+                                <span class="ml-2">→</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Related Articles -->
+                    <div class="mt-8 bg-white rounded-xl shadow-xl overflow-hidden">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-6">Related Articles</h3>
+                            <div class="space-y-6">
+                                {% for related in article.get_related_articles %}
+                                <a href="{% url 'article_detail' related.id %}" class="block group">
+                                    {% if related.featured_image %}
+                                    <div class="relative h-48 rounded-xl overflow-hidden mb-4">
+                                        <img src="{{ related.featured_image.url }}" 
+                                             alt="{{ related.title }}" 
+                                             class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                        <div class="absolute bottom-0 left-0 right-0 p-4">
+                                            <time class="text-sm text-white/80">{{ related.date_published|date:"F j, Y" }}</time>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <h4 class="text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                                        {{ related.title }}
+                                    </h4>
+                                    <div class="mt-2 flex items-center text-sm text-gray-500">
+                                        <span>Read article</span>
+                                        <svg class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                        </svg>
+                                    </div>
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock %} 

@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+
+{% block title %}Travel Destinations - Explore the World with TravelPoints{% endblock %}
+{% block description %}Discover amazing travel destinations around the world. From tropical beaches to bustling cities, find your next adventure with our comprehensive destination guides.{% endblock %}
+{% block keywords %}travel destinations, world travel, vacation spots, travel locations, tourist destinations, travel planning{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-r from-blue-600 to-teal-600 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                Explore Amazing
+                <span class="text-yellow-300">Destinations</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-blue-100">
+                Discover the world's most incredible places to visit
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Popular Destinations -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Popular Destinations</h2>
+            <p class="text-lg text-gray-600">Handpicked destinations that travelers love</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for destination in popular_destinations %}
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div class="relative h-64">
+                    <img src="{{ destination.image }}" alt="{{ destination.name }}" 
+                         class="w-full h-full object-cover">
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-white text-gray-800 text-xs font-medium px-3 py-1 rounded-full">
+                            {{ destination.category }}
+                        </span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">{{ destination.name }}</h3>
+                    <p class="text-gray-600 mb-4">{{ destination.description }}</p>
+                    <a href="{% url 'destination_detail' destination.slug %}" class="text-indigo-600 hover:text-indigo-700 font-medium">
+                        Learn More →
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Destination Categories -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Explore by Category</h2>
+            <p class="text-lg text-gray-600">Find destinations that match your travel style</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-umbrella-beach text-2xl text-blue-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Beach & Island</h3>
+                <p class="text-gray-600 text-sm">Tropical paradises and coastal escapes</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-mountain text-2xl text-green-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Adventure & Nature</h3>
+                <p class="text-gray-600 text-sm">Outdoor adventures and natural wonders</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-city text-2xl text-purple-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">City & Culture</h3>
+                <p class="text-gray-600 text-sm">Urban experiences and cultural immersion</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-heart text-2xl text-red-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Romance & Luxury</h3>
+                <p class="text-gray-600 text-sm">Perfect getaways for couples</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Destination Articles -->
+{% if destination_articles %}
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Destination Guides</h2>
+            <p class="text-lg text-gray-600">Expert insights and tips for your next destination</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for article in destination_articles %}
+            <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                <div class="p-6">
+                    <div class="flex items-center mb-3">
+                        <span class="text-gray-500 text-sm">{{ article.date_published|date:"M d, Y" }}</span>
+                        {% if article.source %}
+                        <span class="text-gray-400 text-sm ml-auto">{{ article.source }}</span>
+                        {% endif %}
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3 line-clamp-2">
+                        <a href="{% url 'article_detail' article.id %}" class="hover:text-indigo-600 transition-colors">
+                            {{ article.title }}
+                        </a>
+                    </h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">
+                        {% if article.structured_content and article.structured_content.summary %}
+                            {{ article.structured_content.summary|truncatewords:15 }}
+                        {% else %}
+                            {{ article.content|truncatewords:15 }}
+                        {% endif %}
+                    </p>
+                    <a href="{% url 'article_detail' article.id %}" class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">
+                        Read More →
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Planning Tools Section -->
+<section class="py-16 bg-indigo-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Plan Your Trip</h2>
+            <p class="text-lg text-gray-600">Tools and resources to help you plan the perfect trip</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-lg p-6 text-center">
+                <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-calendar-alt text-2xl text-indigo-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Best Time to Visit</h3>
+                <p class="text-gray-600 text-sm mb-4">Find the perfect season for your destination</p>
+                <a href="{% url 'travel_tips' %}" class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">
+                    Learn More →
+                </a>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-credit-card text-2xl text-green-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Points & Miles</h3>
+                <p class="text-gray-600 text-sm mb-4">Maximize your rewards for destination travel</p>
+                <a href="{% url 'points_guide' %}" class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">
+                    Learn More →
+                </a>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-lightbulb text-2xl text-purple-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Travel Tips</h3>
+                <p class="text-gray-600 text-sm mb-4">Expert advice for every destination</p>
+                <a href="{% url 'travel_tips' %}" class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">
+                    Learn More →
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-16 bg-indigo-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Explore?</h2>
+        <p class="text-xl mb-8 text-indigo-100">
+            Start planning your next adventure with our expert guidance
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'article_list' %}" class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                Read Destination Guides
+            </a>
+            <a href="{% url 'contact' %}" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-600 transition-colors">
+                Get Personalized Advice
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %} 

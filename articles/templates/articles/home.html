@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+
+{% block title %}TravelPoints - Maximize Your Travel with Points & Miles{% endblock %}
+{% block description %}Discover expert travel tips, destination guides, and strategies to maximize your travel experiences through points and miles. Your ultimate guide to travel rewards.{% endblock %}
+{% block keywords %}travel points, airline miles, credit card rewards, travel tips, destination guides, travel rewards, points optimization{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                Maximize Your Travel with
+                <span class="text-yellow-300">Points & Miles</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-indigo-100">
+                Expert strategies to earn, redeem, and optimize your travel rewards
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="{% url 'points_guide' %}" class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    Start Learning
+                </a>
+                <a href="{% url 'article_list' %}" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-600 transition-colors">
+                    Read Articles
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Articles Section -->
+{% if featured_articles %}
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Featured Articles</h2>
+            <p class="text-lg text-gray-600">Handpicked content to help you travel smarter</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for article in featured_articles %}
+            <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                            Featured
+                        </span>
+                        <span class="text-gray-500 text-sm ml-auto">{{ article.date_published|date:"M d, Y" }}</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                        <a href="{% url 'article_detail' article.id %}" class="hover:text-indigo-600 transition-colors">
+                            {{ article.title }}
+                        </a>
+                    </h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">
+                        {% if article.structured_content and article.structured_content.summary %}
+                            {{ article.structured_content.summary|truncatewords:20 }}
+                        {% else %}
+                            {{ article.content|truncatewords:20 }}
+                        {% endif %}
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500">By {{ article.author|default:"TravelPoints" }}</span>
+                        <a href="{% url 'article_detail' article.id %}" class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Latest Articles Grid -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Latest Articles</h2>
+            <p class="text-lg text-gray-600">Stay updated with the latest travel insights and strategies</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for article in latest_articles %}
+            <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                <div class="p-6">
+                    <div class="flex items-center mb-3">
+                        <span class="text-gray-500 text-sm">{{ article.date_published|date:"M d, Y" }}</span>
+                        {% if article.source %}
+                        <span class="text-gray-400 text-sm ml-auto">{{ article.source }}</span>
+                        {% endif %}
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3 line-clamp-2">
+                        <a href="{% url 'article_detail' article.id %}" class="hover:text-indigo-600 transition-colors">
+                            {{ article.title }}
+                        </a>
+                    </h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">
+                        {% if article.structured_content and article.structured_content.summary %}
+                            {{ article.structured_content.summary|truncatewords:15 }}
+                        {% else %}
+                            {{ article.content|truncatewords:15 }}
+                        {% endif %}
+                    </p>
+                    <a href="{% url 'article_detail' article.id %}" class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">
+                        Read More →
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="{% url 'article_list' %}" class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
+                View All Articles
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Points & Miles Section -->
+{% if points_articles %}
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Points & Miles</h2>
+            <p class="text-lg text-gray-600">Master the art of earning and redeeming travel rewards</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {% for article in points_articles %}
+            <article class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-bold text-gray-900 mb-3">
+                    <a href="{% url 'article_detail' article.id %}" class="hover:text-indigo-600 transition-colors">
+                        {{ article.title }}
+                    </a>
+                </h3>
+                <p class="text-gray-600 mb-4">
+                    {% if article.structured_content and article.structured_content.summary %}
+                        {{ article.structured_content.summary|truncatewords:25 }}
+                    {% else %}
+                        {{ article.content|truncatewords:25 }}
+                    {% endif %}
+                </p>
+                <a href="{% url 'article_detail' article.id %}" class="text-indigo-600 hover:text-indigo-700 font-medium">
+                    Read More →
+                </a>
+            </article>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="{% url 'points_guide' %}" class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
+                Explore Points Guide
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Travel Tips Section -->
+{% if travel_articles %}
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Travel Tips & Advice</h2>
+            <p class="text-lg text-gray-600">Expert advice to enhance your travel experiences</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {% for article in travel_articles %}
+            <article class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-bold text-gray-900 mb-3">
+                    <a href="{% url 'article_detail' article.id %}" class="hover:text-indigo-600 transition-colors">
+                        {{ article.title }}
+                    </a>
+                </h3>
+                <p class="text-gray-600 mb-4">
+                    {% if article.structured_content and article.structured_content.summary %}
+                        {{ article.structured_content.summary|truncatewords:25 }}
+                    {% else %}
+                        {{ article.content|truncatewords:25 }}
+                    {% endif %}
+                </p>
+                <a href="{% url 'article_detail' article.id %}" class="text-indigo-600 hover:text-indigo-700 font-medium">
+                    Read More →
+                </a>
+            </article>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="{% url 'travel_tips' %}" class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
+                More Travel Tips
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Call to Action Section -->
+<section class="py-16 bg-indigo-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Start Your Travel Journey?</h2>
+        <p class="text-xl mb-8 text-indigo-100">
+            Join thousands of travelers who are maximizing their experiences with our expert guidance
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'destinations' %}" class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                Explore Destinations
+            </a>
+            <a href="{% url 'contact' %}" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-600 transition-colors">
+                Get in Touch
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %} 

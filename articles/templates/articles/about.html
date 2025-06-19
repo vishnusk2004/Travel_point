@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - TravelPoints Mission & Values{% endblock %}
+{% block description %}Learn about TravelPoints mission to democratize luxury travel through points and miles strategies. Our commitment to accessibility, innovation, and community.{% endblock %}
+{% block keywords %}about travelpoints, travel mission, points and miles mission, travel values, democratize luxury travel{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                About
+                <span class="text-yellow-300">TravelPoints</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-indigo-100">
+                Your trusted partner in maximizing travel experiences
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Mission Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{{ mission_statement.title }}</h2>
+                <p class="text-lg text-gray-600 mb-6">
+                    {{ mission_statement.description }}
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="{% url 'points_guide' %}" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors text-center">
+                        Start Learning
+                    </a>
+                    <a href="{% url 'contact' %}" class="border-2 border-indigo-600 text-indigo-600 px-6 py-3 rounded-lg font-semibold hover:bg-indigo-600 hover:text-white transition-colors text-center">
+                        Get in Touch
+                    </a>
+                </div>
+            </div>
+            <div class="bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl p-8">
+                <div class="text-center">
+                    <i class="{{ mission_statement.icon }} text-6xl text-indigo-600 mb-6"></i>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Why We Do What We Do</h3>
+                    <p class="text-gray-700">
+                        We believe that everyone deserves to experience the world's most incredible destinations. 
+                        Through our expertise in points and miles, we're making luxury travel accessible to all.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Values Section -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Core Values</h2>
+            <p class="text-lg text-gray-600">The principles that guide everything we do</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {% for value in core_values %}
+            <div class="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="{{ value.icon }} text-2xl text-indigo-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">{{ value.title }}</h3>
+                <p class="text-gray-600">{{ value.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Impact</h2>
+            <p class="text-lg text-gray-600">Numbers that tell our story</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="text-4xl md:text-5xl font-bold text-indigo-600 mb-2">{{ stats.articles_published }}+</div>
+                <div class="text-gray-600">Articles Published</div>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl md:text-5xl font-bold text-indigo-600 mb-2">{{ stats.destinations_covered }}+</div>
+                <div class="text-gray-600">Destinations Covered</div>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl md:text-5xl font-bold text-indigo-600 mb-2">{{ stats.readers_helped }}</div>
+                <div class="text-gray-600">Readers Helped</div>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl md:text-5xl font-bold text-indigo-600 mb-2">{{ stats.years_experience }}+</div>
+                <div class="text-gray-600">Years Experience</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What Sets Us Apart</h2>
+            <p class="text-lg text-gray-600">Why travelers choose TravelPoints</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-lg p-6 text-center">
+                <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-lightbulb text-2xl text-indigo-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">AI-Powered Insights</h3>
+                <p class="text-gray-600">We leverage cutting-edge AI technology to provide the most accurate and up-to-date travel recommendations and strategies.</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-users text-2xl text-green-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Community-Driven</h3>
+                <p class="text-gray-600">We build and nurture a community of passionate travelers who share knowledge and experiences.</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-star text-2xl text-purple-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Excellence</h3>
+                <p class="text-gray-600">We strive for excellence in everything we do, from content quality to user experience.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-16 bg-indigo-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Join Our Community</h2>
+        <p class="text-xl mb-8 text-indigo-100">
+            Connect with fellow travelers and get expert advice
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'article_list' %}" class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                Read Our Articles
+            </a>
+            <a href="{% url 'contact' %}" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-600 transition-colors">
+                Get in Touch
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %} 

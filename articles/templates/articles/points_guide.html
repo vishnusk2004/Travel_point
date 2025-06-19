@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+
+{% block title %}Points & Miles Guide - Master Travel Rewards{% endblock %}
+{% block description %}Master the art of earning and redeeming points and miles. Learn credit card strategies, airline miles optimization, and hotel loyalty programs.{% endblock %}
+{% block keywords %}points and miles, credit card rewards, airline miles, hotel points, travel rewards, loyalty programs{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-r from-green-600 to-blue-600 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                Points & Miles
+                <span class="text-yellow-300">Guide</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-green-100">
+                Master the art of earning and redeeming travel rewards
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Learning Paths -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Learning Paths</h2>
+            <p class="text-lg text-gray-600">Choose your path to points mastery</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {% for guide in guides %}
+            <div class="bg-gradient-to-r from-gray-50 to-white rounded-xl p-8 border border-gray-200 hover:shadow-lg transition-shadow">
+                <div class="flex items-start mb-6">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
+                        <i class="{{ guide.icon }} text-2xl text-indigo-600"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">{{ guide.title }}</h3>
+                        <span class="inline-block bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded mb-3">
+                            {{ guide.difficulty }}
+                        </span>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-6">{{ guide.description }}</p>
+                <a href="#" class="text-indigo-600 hover:text-indigo-700 font-medium">
+                    Start Learning →
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Quick Tips Section -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Quick Tips</h2>
+            <p class="text-lg text-gray-600">Essential strategies to get you started</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-lg p-6 text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-credit-card text-2xl text-green-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Credit Card Strategy</h3>
+                <ul class="text-left text-sm text-gray-600 space-y-2">
+                    <li>• Apply for cards with sign-up bonuses</li>
+                    <li>• Use cards for everyday spending</li>
+                    <li>• Pay balances in full monthly</li>
+                    <li>• Monitor annual fees</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-plane text-2xl text-blue-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Airline Miles</h3>
+                <ul class="text-left text-sm text-gray-600 space-y-2">
+                    <li>• Focus on airline alliances</li>
+                    <li>• Book during promotions</li>
+                    <li>• Use co-branded cards</li>
+                    <li>• Transfer points strategically</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-hotel text-2xl text-purple-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Hotel Points</h3>
+                <ul class="text-left text-sm text-gray-600 space-y-2">
+                    <li>• Stay loyal to hotel chains</li>
+                    <li>• Book direct for bonus points</li>
+                    <li>• Use hotel credit cards</li>
+                    <li>• Take advantage of promotions</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Points Articles -->
+{% if points_articles %}
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Latest Points & Miles Content</h2>
+            <p class="text-lg text-gray-600">Stay updated with the latest strategies and opportunities</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for article in points_articles %}
+            <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                <div class="p-6">
+                    <div class="flex items-center mb-3">
+                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                            Points & Miles
+                        </span>
+                        <span class="text-gray-500 text-sm ml-auto">{{ article.date_published|date:"M d, Y" }}</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3 line-clamp-2">
+                        <a href="{% url 'article_detail' article.id %}" class="hover:text-indigo-600 transition-colors">
+                            {{ article.title }}
+                        </a>
+                    </h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">
+                        {% if article.structured_content and article.structured_content.summary %}
+                            {{ article.structured_content.summary|truncatewords:15 }}
+                        {% else %}
+                            {{ article.content|truncatewords:15 }}
+                        {% endif %}
+                    </p>
+                    <a href="{% url 'article_detail' article.id %}" class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">
+                        Read More →
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Tools & Resources -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Tools & Resources</h2>
+            <p class="text-lg text-gray-600">Everything you need to maximize your points</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-calculator text-2xl text-indigo-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Points Calculator</h3>
+                <p class="text-gray-600 text-sm mb-4">Calculate the value of your points</p>
+                <a href="#" class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">
+                    Try Calculator →
+                </a>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-chart-line text-2xl text-green-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Deal Tracker</h3>
+                <p class="text-gray-600 text-sm mb-4">Track the best points deals</p>
+                <a href="#" class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">
+                    View Deals →
+                </a>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-book text-2xl text-blue-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Strategy Guide</h3>
+                <p class="text-gray-600 text-sm mb-4">Comprehensive strategy guides</p>
+                <a href="#" class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">
+                    Read Guides →
+                </a>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-users text-2xl text-purple-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Community</h3>
+                <p class="text-gray-600 text-sm mb-4">Connect with other travelers</p>
+                <a href="{% url 'contact' %}" class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">
+                    Join Community →
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-16 bg-green-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Start Earning?</h2>
+        <p class="text-xl mb-8 text-green-100">
+            Begin your journey to points mastery today
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'article_list' %}" class="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                Read More Articles
+            </a>
+            <a href="{% url 'contact' %}" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors">
+                Get Personalized Advice
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %} 
