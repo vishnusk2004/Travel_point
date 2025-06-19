@@ -12,6 +12,10 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
+      - key: DJANGO_SETTINGS_MODULE
+        value: travelpoints.settings
+      - key: SECRET_KEY
+        generateValue: true
       - key: DEBUG
         value: False
       - key: ALLOWED_HOSTS
